@@ -7,6 +7,7 @@ import android.os.PowerManager
 import android.service.quicksettings.Tile
 import android.service.quicksettings.TileService
 import com.bulwinkel.tools.logd
+import com.bulwinkel.tools.loge
 
 class WakefulTileService : TileService() {
 
@@ -21,15 +22,20 @@ class WakefulTileService : TileService() {
   override fun onClick() {
     super.onClick()
     logd { "onClick" }
-
-    if (wakelock.isHeld){
-      wakelock.release()
-      qsTile.state = Tile.STATE_INACTIVE
-      logd { "wakelock released, state = ${qsTile.state}" }
+    val tile = qsTile
+    if (tile != null) {
+      if (wakelock.isHeld) {
+        wakelock.release()
+        tile.state = Tile.STATE_INACTIVE
+        logd { "wakelock released, state = ${qsTile.state}" }
+      } else {
+        wakelock.acquire()
+        tile.state = Tile.STATE_ACTIVE
+        logd { "wakelock aquired, state = ${qsTile.state}" }
+      }
+      tile.updateTile()
     } else {
-      wakelock.acquire()
-      qsTile.state = Tile.STATE_ACTIVE
-      logd { "wakelock aquired, state = ${qsTile.state}" }
+      loge { "qsTile == $tile" }
     }
   }
 
