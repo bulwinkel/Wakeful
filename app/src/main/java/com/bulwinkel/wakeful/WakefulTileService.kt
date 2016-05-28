@@ -17,6 +17,13 @@ class WakefulTileService : TileService() {
   private val powerManager by lazy { getSystemService(Context.POWER_SERVICE) as PowerManager }
   private val wakelock by lazy { powerManager.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK, "Wakeful") }
 
+  private var tileState = Tile.STATE_INACTIVE
+  private fun setTileState(tile: Tile, state: Int) {
+    tileState = state
+    tile.state = state
+    tile.updateTile()
+  }
+
   override fun onCreate() {
     super.onCreate()
     logd { "onCreate" }
@@ -29,14 +36,15 @@ class WakefulTileService : TileService() {
     if (tile != null) {
       if (wakelock.isHeld) {
         wakelock.release()
-        tile.state = Tile.STATE_INACTIVE
+        setTileState(tile, Tile.STATE_INACTIVE)
         logd { "wakelock released, state = ${tile.state}" }
+        stopSelf()
       } else {
         wakelock.acquire()
-        tile.state = Tile.STATE_ACTIVE
+        setTileState(tile, Tile.STATE_ACTIVE)
         logd { "wakelock aquired, state = ${tile.state}" }
+        startService(Intent(this, WakefulTileService::class.java))
       }
-      tile.updateTile()
     } else {
       loge { "qsTile == $tile" }
     }
@@ -55,6 +63,7 @@ class WakefulTileService : TileService() {
   override fun onStartListening() {
     super.onStartListening()
     logd { "onStartListening" }
+    setTileState(qsTile, tileState)
   }
 
   override fun onBind(intent: Intent?): IBinder? {
