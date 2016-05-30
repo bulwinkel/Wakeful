@@ -1,7 +1,9 @@
 package com.bulwinkel.wakeful
 
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.content.res.Configuration
 import android.os.IBinder
 import android.os.PowerManager
@@ -11,17 +13,47 @@ import com.bulwinkel.tools.logd
 import com.bulwinkel.tools.loge
 import java.io.FileDescriptor
 import java.io.PrintWriter
+import java.lang.ref.WeakReference
 
 class WakefulTileService : TileService() {
 
   private val powerManager by lazy { getSystemService(Context.POWER_SERVICE) as PowerManager }
   private val wakelock by lazy { powerManager.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK, "Wakeful") }
+  private val broadcastReceiver by lazy { WakefulBroadcastReceiver(this) }
+
+  private val intentFilter = IntentFilter(Intent.ACTION_SCREEN_OFF)
 
   private var tileState = Tile.STATE_INACTIVE
   private fun setTileState(tile: Tile, state: Int) {
     tileState = state
     tile.state = state
     tile.updateTile()
+  }
+
+  private fun acquireWakeLock() {
+    val tile = qsTile
+    if (tile != null) {
+      wakelock.acquire()
+      setTileState(tile, Tile.STATE_ACTIVE)
+      startService(Intent(this, WakefulTileService::class.java))
+      registerReceiver(broadcastReceiver, intentFilter)
+      logd { "wakelock aquired, state = ${tile.state}" }
+    } else {
+      loge { "qsTile == $tile" }
+    }
+  }
+
+  fun releaseWakeLock() {
+    val tile = qsTile
+    if (tile != null) {
+      wakelock.release()
+      setTileState(tile, Tile.STATE_INACTIVE)
+      logd { "wakelock released, state = ${tile.state}" }
+      unregisterReceiver(broadcastReceiver)
+      stopSelf()
+    } else {
+      loge { "qsTile == $tile" }
+    }
   }
 
   override fun onCreate() {
@@ -32,21 +64,10 @@ class WakefulTileService : TileService() {
   override fun onClick() {
     super.onClick()
     logd { "onClick" }
-    val tile = qsTile
-    if (tile != null) {
-      if (wakelock.isHeld) {
-        wakelock.release()
-        setTileState(tile, Tile.STATE_INACTIVE)
-        logd { "wakelock released, state = ${tile.state}" }
-        stopSelf()
-      } else {
-        wakelock.acquire()
-        setTileState(tile, Tile.STATE_ACTIVE)
-        logd { "wakelock aquired, state = ${tile.state}" }
-        startService(Intent(this, WakefulTileService::class.java))
-      }
+    if (wakelock.isHeld) {
+      releaseWakeLock()
     } else {
-      loge { "qsTile == $tile" }
+      acquireWakeLock()
     }
   }
 
@@ -120,4 +141,20 @@ class WakefulTileService : TileService() {
     logd { "onDestroy" }
     super.onDestroy()
   }
+}
+
+private class WakefulBroadcastReceiver(service: WakefulTileService) : BroadcastReceiver() {
+
+  private val weakService: WeakReference<WakefulTileService>
+
+  init {
+    weakService = WeakReference(service)
+  }
+
+  override fun onReceive(p0: Context?, p1: Intent?) {
+    val service = weakService.get()
+    logd { "onReceive: service == $service" }
+    service?.releaseWakeLock()
+  }
+
 }
