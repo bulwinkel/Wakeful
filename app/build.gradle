@@ -9,8 +9,8 @@ android {
     applicationId "com.bulwinkel.wakeful"
     minSdkVersion 'N'
     targetSdkVersion 'N'
-    versionCode 1
-    versionName "0.0"
+    versionCode rootProject.gitInfo.commitCount
+    versionName rootProject.gitInfo.latestTag
   }
   buildTypes {
     release {

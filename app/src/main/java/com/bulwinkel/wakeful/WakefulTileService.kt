@@ -37,6 +37,7 @@ class WakefulTileService : TileService() {
       setTileState(tile, Tile.STATE_ACTIVE)
       startService(Intent(this, WakefulTileService::class.java))
       registerReceiver(broadcastReceiver, intentFilter)
+      //yah - todo - show a notification while the service is running - remove when screen goes off
       logd { "wakelock aquired, state = ${tile.state}" }
     } else {
       loge { "qsTile == $tile" }
