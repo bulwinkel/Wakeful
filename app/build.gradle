@@ -21,6 +21,8 @@ android {
   sourceSets {
     main.java.srcDirs += 'src/main/kotlin'
   }
+
+  compileOptions.incremental = false // for kotlin
 }
 
 dependencies {
