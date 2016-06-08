@@ -1,9 +1,21 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
+// load in properties from keystore credentials file (not in git)
+apply from: '../gradle/keystore-plugin.gradle'
+
 android {
   compileSdkVersion 'android-N'
   buildToolsVersion "23.0.3"
+
+  signingConfigs {
+    wakeful {
+      storeFile file(KEYSTORE_PATH)
+      storePassword KEYSTORE_PASSWORD
+      keyAlias 'wakeful'
+      keyPassword KEY_PASSWORD
+    }
+  }
 
   defaultConfig {
     applicationId "com.bulwinkel.wakeful"
@@ -16,6 +28,7 @@ android {
     release {
       minifyEnabled false
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+      signingConfig = signingConfigs.wakeful
     }
   }
   sourceSets {
