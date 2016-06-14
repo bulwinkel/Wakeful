@@ -88,59 +88,13 @@ class WakefulTileService : TileService() {
     setTileState(qsTile, tileState)
   }
 
-  override fun onBind(intent: Intent?): IBinder? {
-    logd { "onBind(intent: $intent, action: ${intent?.action}, extras: ${intent?.extras})" }
-    return super.onBind(intent)
-  }
-
-  override fun onStopListening() {
-    logd { "onStopListening" }
-    super.onStopListening()
-  }
-
-  override fun onConfigurationChanged(newConfig: Configuration?) {
-    logd { "onConfigurationChanged(newConfig: $newConfig)" }
-    super.onConfigurationChanged(newConfig)
-  }
-
-  override fun onRebind(intent: Intent?) {
-    logd { "onRebind(intent: $intent, action: ${intent?.action}, extras: ${intent?.extras})" }
-    super.onRebind(intent)
-  }
-
-  override fun dump(fd: FileDescriptor?, writer: PrintWriter?, args: Array<out String>?) {
-    logd { "dump(fileDescriptor: $fd, writer: $writer, args: $args)" }
-    super.dump(fd, writer, args)
-  }
-
-  override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-    logd { "onStartCommand(intent: $intent, action: ${intent?.action}, extras: ${intent?.extras}, flags: $flags, startId: $startId)" }
-    return super.onStartCommand(intent, flags, startId)
-  }
-
-  override fun onLowMemory() {
-    logd { "onLowMemory" }
-    super.onLowMemory()
-  }
-
-  override fun onTaskRemoved(intent: Intent?) {
-    logd { "onTaskRemoved(intent: $intent, action: ${intent?.action}, extras: ${intent?.extras})" }
-    super.onTaskRemoved(intent)
-  }
-
-  override fun onTrimMemory(level: Int) {
-    logd { "onTrimMemory(level: $level)" }
-    super.onTrimMemory(level)
-  }
-
-  override fun onUnbind(intent: Intent?): Boolean {
-    logd { "onUnbind(intent: $intent, action: ${intent?.action}, extras: ${intent?.extras})" }
-    return super.onUnbind(intent)
-  }
-
-  override fun onDestroy() {
-    logd { "onDestroy" }
-    super.onDestroy()
+  private fun showNotification() {
+//    val builder = NotificationCompat.Builder(context)
+//        .setSmallIcon(R.drawable.ic_phonelink_ring_primary_24dp)
+//        .setContentTitle(title)
+//        .setContentText(message)
+//        .setLargeIcon(largeIcon)
+//        .setAutoCancel(true);
   }
 }
 
