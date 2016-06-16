@@ -5,7 +5,7 @@ apply plugin: 'kotlin-android'
 apply from: '../gradle/keystore-plugin.gradle'
 
 android {
-  compileSdkVersion 'android-N'
+  compileSdkVersion 24
   buildToolsVersion "23.0.3"
 
   signingConfigs {
@@ -19,8 +19,8 @@ android {
 
   defaultConfig {
     applicationId "com.bulwinkel.wakeful"
-    minSdkVersion 'N'
-    targetSdkVersion 'N'
+    minSdkVersion 24
+    targetSdkVersion 24
     versionCode rootProject.gitInfo.commitCount
     versionName rootProject.gitInfo.latestTag
   }
