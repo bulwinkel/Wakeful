@@ -8,6 +8,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.graphics.BitmapFactory
+import android.graphics.drawable.Icon
 import android.os.PowerManager
 import android.service.quicksettings.Tile
 import android.service.quicksettings.TileService
@@ -32,6 +33,11 @@ class WakefulTileService : TileService() {
   private fun setTileState(tile: Tile, state: Int) {
     tileState = state
     tile.state = state
+    val iconResId = when (state) {
+      Tile.STATE_ACTIVE -> R.drawable.ic_notification_active
+      else -> R.drawable.ic_notification_inactive
+    }
+    tile.icon = Icon.createWithResource(this, iconResId)
     tile.updateTile()
   }
 
@@ -118,7 +124,7 @@ class WakefulTileService : TileService() {
     val doneAction = Notification.Action.Builder(null, "Done", donePendingIntent).build()
 
     val builder = Notification.Builder(this)
-        .setSmallIcon(R.drawable.ic_notification_default)
+        .setSmallIcon(R.drawable.ic_notification_active)
         .setContentTitle(title)
         .setActions(doneAction)
 
