@@ -19,7 +19,7 @@
     </activity>
 
     <service
-        android:icon="@drawable/ic_notification_default"
+        android:icon="@drawable/ic_notification_inactive"
         android:label="@string/app_name"
         android:name=".WakefulTileService"
         android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
