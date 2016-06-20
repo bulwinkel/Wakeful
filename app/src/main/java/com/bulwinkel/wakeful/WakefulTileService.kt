@@ -50,7 +50,6 @@ class WakefulTileService : TileService() {
       startService(intent)
       showNotification()
       registerReceiver(broadcastReceiver, intentFilter)
-      //yah - todo - show a notification while the service is running - remove when screen goes off
       logd { "wakelock aquired, state = ${tile.state}" }
     } else {
       loge { "qsTile == $tile" }
