@@ -1,3 +1,5 @@
 <resources>
   <string name="app_name">Wakeful</string>
+  <string name="nothing_to_see_here">Nothing to see here…</string>
+  <string name="open_your_you_quick_settings_blurb">Look for the Wakeful candle if your quick settings drawer.</string>
 </resources>
