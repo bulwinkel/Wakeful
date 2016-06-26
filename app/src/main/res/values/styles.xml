@@ -6,6 +6,12 @@
     <item name="android:colorPrimary">@color/colorPrimary</item>
     <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
     <item name="android:colorAccent">@color/colorAccent</item>
+    <item name="android:colorBackground">@color/colorBackground</item>
+  </style>
+
+  <style name="AppTheme.MainActivity" parent="AppTheme">
+    <item name="android:statusBarColor">@color/colorBackground</item>
+    <item name="android:windowLightStatusBar">true</item>
   </style>
 
 </resources>
