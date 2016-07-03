@@ -8,14 +8,6 @@ android {
   compileSdkVersion 24
   buildToolsVersion "23.0.3"
 
-  signingConfigs {
-    wakeful {
-      storeFile file(KEYSTORE_PATH)
-      storePassword KEYSTORE_PASSWORD
-      keyAlias 'wakeful'
-      keyPassword KEY_PASSWORD
-    }
-  }
 
   defaultConfig {
     applicationId "com.bulwinkel.wakeful"
@@ -28,7 +20,7 @@ android {
     release {
       minifyEnabled false
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-      signingConfig = signingConfigs.wakeful
+//      signingConfig = signingConfigs.wakeful
     }
   }
   sourceSets {

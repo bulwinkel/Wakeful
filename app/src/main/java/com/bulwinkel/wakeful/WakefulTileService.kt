@@ -73,6 +73,9 @@ class WakefulTileService : TileService() {
   override fun onCreate() {
     super.onCreate()
     logd { "onCreate" }
+
+
+
   }
 
   override fun onClick() {
@@ -115,16 +118,17 @@ class WakefulTileService : TileService() {
 
   private fun showNotification() {
 
-    val title = getString(R.string.app_name)
+    val title = getString(R.string.notification_title)
 
     val doneIntent = Intent(this, this.javaClass).setAction(ACTION_ALLOW_SLEEP)
     val donePendingIntent = PendingIntent.getService(this, ID_DONE_INTENT, doneIntent, FLAG_UPDATE_CURRENT);
 
-    val doneAction = Notification.Action.Builder(null, "Done", donePendingIntent).build()
+    val doneAction = Notification.Action.Builder(null, "Allow sleep", donePendingIntent).build()
 
     val builder = Notification.Builder(this)
         .setSmallIcon(R.drawable.ic_notification_active)
         .setContentTitle(title)
+        .setContentText(getString(R.string.notification_content))
         .setActions(doneAction)
 
     startForeground(ID_NOTIFICATION, builder.build())
