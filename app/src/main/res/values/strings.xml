@@ -1,5 +1,7 @@
 <resources>
-  <string name="app_name">Wakeful</string>
-  <string name="nothing_to_see_here">Nothing to see here…</string>
-  <string name="open_your_you_quick_settings_blurb">Look for the Wakeful candle in your quick settings drawer.</string>
+    <string name="app_name">Wakeful</string>
+    <string name="nothing_to_see_here">Nothing to see here…</string>
+    <string name="open_your_you_quick_settings_blurb">Look for the Wakeful icon in your quick settings drawer.</string>
+    <string name="notification_title">Wide awake</string>
+    <string name="notification_content">Your screen won\'t sleep until you\'re ready</string>
 </resources>
