@@ -4,6 +4,9 @@
 
 Quick settings tile that keeps your screen on.
 
+Thanks
+------
+* [**Patrick McCallum**](http://www.linkedin.com/in/patrickmccallum) for everything that makes this app look good! 
 
 License
 --------
