@@ -1,4 +1,4 @@
-Wakeful
-===
+![Wakeful](app/src/main/res/mipmap-xxxhdpi/ic_launcher.png)
+====================================================================
 
-Testing the new Quick Settings Api in Android N.
+Quick settings tile that keeps your screen on.
