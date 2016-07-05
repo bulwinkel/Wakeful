@@ -14,6 +14,7 @@
   <style name="AppTheme.MainActivity" parent="AppTheme">
     <item name="android:statusBarColor">@color/colorBackground</item>
     <item name="android:windowLightStatusBar">false</item>
+    <item name="android:windowBackground">@drawable/background</item>
   </style>
 
 </resources>
