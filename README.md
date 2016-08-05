@@ -2,7 +2,7 @@
 [![Get it on Google Play](art/en-play-badge.png)][1]
 
 
-Quick settings tile that keeps your screen on.
+Wakeful is a Quick Settings Tile that keeps your screen on for as long as you need it... that is all
 
 Thanks
 ------
